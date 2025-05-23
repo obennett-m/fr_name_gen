@@ -62,12 +62,28 @@ Successfully generated 100 French names in 'french_names.csv'
 
 Example:
 
-```csv
+```
 firstname,lastname
 Adèle,Vavasseur
 Jeanne,Thierry
 Georges,Garnier
 ```
+
+### Note on Duplicate Combinations
+
+The current implementation uses random selection which can produce duplicate combinations.
+
+- Maximum unique combinations possible: 79,488 (276 first names × 288 last names)
+- When generating small batches (< 1,000 names) expect mostly unique combinations
+- When generating larger batches (> 10,000 names) expect increasing number of duplicates
+- When generating more than 79,488 names: duplicates inevitable
+
+
+For applications requiring only unique name combinations, consider:
+1. Post-processing the CSV to remove duplicates, e.g.:
+   ```bash
+   sort -u -t, -k1,2 french_names.csv > unique_french_names.csv
+   ```
 
 ## Acknowledgements
 
